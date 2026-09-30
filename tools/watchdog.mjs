@@ -32,7 +32,9 @@ const MARKER = path.join(STATE_DIR, 'host-active.json')
 const LOG = path.join(STATE_DIR, 'watchdog.log')
 
 const PORT = 19387
-const APP_EXE = 'C:\\Users\\A1391\\AppData\\Local\\Programs\\DeepSeek Harness\\DeepSeek Harness.exe'
+const LOCAL_APPDATA = process.env.LOCALAPPDATA || path.join(os.homedir(), 'AppData', 'Local')
+const APP_EXE = process.env.DSH_APP_EXE ||
+  path.join(LOCAL_APPDATA, 'Programs', 'DeepSeek Harness', 'DeepSeek Harness.exe')
 
 const args = process.argv.slice(2)
 const flag = (name) => args.includes(`--${name}`)

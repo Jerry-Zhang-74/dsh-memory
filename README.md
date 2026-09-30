@@ -523,7 +523,7 @@ tools/
 
 test/                    nine suites, 73 cases
 docs/                    DSH plugin architecture reference
-research/                prior-art survey plus downloaded sources
+research/                prior-art survey plus downloaded sources (not published)
 ```
 
 Run everything:
@@ -538,7 +538,7 @@ node test/activate.mjs          # activation against the real cordis runtime
 
 ## Prior art
 
-Findings from the survey in `research/`:
+Findings from the prior-art survey:
 
 - **Anthropic publishes no JSON interchange format.** The memory tool is plain
   text files under `/memories`; claude.ai import is pasted prose processed by a
@@ -559,4 +559,4 @@ Findings from the survey in `research/`:
 
 ## License
 
-MIT
+MIT — see [LICENSE](LICENSE).

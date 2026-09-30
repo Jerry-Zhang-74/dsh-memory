@@ -7,7 +7,7 @@
 The task named this checkout:
 
 ```
-C:\Users\A1391\AppData\Local\Programs\DeepSeek Harness\resources\app.asar\dsh\
+C:\Users\<user>\AppData\Local\Programs\DeepSeek Harness\resources\app.asar\dsh\
 ```
 
 **That path does not exist as a directory.** `app.asar` is a packed Electron archive *file*; the
@@ -19,14 +19,14 @@ The readable implementation used for this document is the **globally installed n
 the desktop app and every profile actually link against:
 
 ```
-C:\Users\A1391\AppData\Roaming\npm\node_modules\@deepseek-ai\dsh\           ← the dsh CLI (apps/cli)
-C:\Users\A1391\AppData\Roaming\npm\node_modules\@deepseek-ai\dsh\node_modules\@deepseek-ai\   ← 196 packages
+C:\Users\<user>\AppData\Roaming\npm\node_modules\@deepseek-ai\dsh\           ← the dsh CLI (apps/cli)
+C:\Users\<user>\AppData\Roaming\npm\node_modules\@deepseek-ai\dsh\node_modules\@deepseek-ai\   ← 196 packages
 ```
 
 Proof that this is the live tree: every `~/.dsh/profiles/node_modules/@deepseek-ai/*` symlink resolves there, e.g.
 
 ```
-dsh-tools -> C:\Users\A1391\AppData\Roaming\npm\node_modules\@deepseek-ai\dsh\node_modules\@deepseek-ai\dsh-tools
+dsh-tools -> C:\Users\<user>\AppData\Roaming\npm\node_modules\@deepseek-ai\dsh\node_modules\@deepseek-ai\dsh-tools
 ```
 
 | Fact | Value |
@@ -34,10 +34,10 @@ dsh-tools -> C:\Users\A1391\AppData\Roaming\npm\node_modules\@deepseek-ai\dsh\no
 | `@deepseek-ai/dsh` CLI version | `0.1.1-rc.2` |
 | `@deepseek-ai/cordis` version | `4.0.2` |
 | Desktop app version | `0.2.0-rc.2` (runtime.json) |
-| DSH home | `C:\Users\A1391\.dsh` |
+| DSH home | `C:\Users\<user>\.dsh` |
 | Bundled runtime | node `24.21.0`, pnpm `11.7.0`, python `3.12.14` |
 
-Throughout, `PKGS` = `C:\Users\A1391\AppData\Roaming\npm\node_modules\@deepseek-ai\dsh\node_modules\@deepseek-ai`.
+Throughout, `PKGS` = `C:\Users\<user>\AppData\Roaming\npm\node_modules\@deepseek-ai\dsh\node_modules\@deepseek-ai`.
 
 Every package ships `lib/*.js` (compiled ESM) + `lib/types/*.d.ts` + a substantial `README.md`. **The
 READMEs are the real plugin-authoring documentation.**
@@ -373,16 +373,16 @@ export interface DshManifestSection {
 }
 ```
 
-**Real files on this machine — read:** `C:\Users\A1391\.dsh\profiles\desktop\package.json`
+**Real files on this machine — read:** `C:\Users\<user>\.dsh\profiles\desktop\package.json`
 
 ```json
 {
   "name": "dsh-profile-desktop",
   "private": true,
   "dependencies": {
-    "dsh-whale-widget": "link:C:/Users/A1391/.dsh/plugins/DeepSeek-Balance-Whale-Widget-main",
+    "dsh-whale-widget": "link:C:/Users/<user>/.dsh/plugins/DeepSeek-Balance-Whale-Widget-main",
     "dsh-mobile": "0.4.7",
-    "whale-desktop-bridge": "link:C:/Users/A1391/.dsh/plugins/whale-desktop-bridge"
+    "whale-desktop-bridge": "link:C:/Users/<user>/.dsh/plugins/whale-desktop-bridge"
   },
   "dsh": {
     "profile": {
@@ -399,7 +399,7 @@ export interface DshManifestSection {
 }
 ```
 
-`C:\Users\A1391\.dsh\profiles\desktop\cordis.yml` is the empty root:
+`C:\Users\<user>\.dsh\profiles\desktop\cordis.yml` is the empty root:
 
 ```yaml
 # dsh profile root — an empty entry list. The tree is composed as patches:
@@ -450,7 +450,7 @@ patch must contain at least one real entry (the `- insert:` block).
 
 ### 3d. The bundle patch file
 
-**Real, complete, working example — read:** `C:\Users\A1391\.dsh\plugins\whale-desktop-bridge\cordis.patch.yml`
+**Real, complete, working example — read:** `C:\Users\<user>\.dsh\plugins\whale-desktop-bridge\cordis.patch.yml`
 
 ```yaml
 # whale-desktop-bridge bundle patch layer.
@@ -1087,7 +1087,7 @@ and *never enter model history*.
 Since commands cannot return files, three verified mechanisms exist:
 
 **(i) Host HTTP route served to the browser** — the fully worked local-plugin example,
-`C:\Users\A1391\.dsh\plugins\DeepSeek-Balance-Whale-Widget-main\lib\index.js` (lines 1853–1889, 2000–2014):
+`C:\Users\<user>\.dsh\plugins\DeepSeek-Balance-Whale-Widget-main\lib\index.js` (lines 1853–1889, 2000–2014):
 
 ```js
     disposers.push(ctx.webServer.register({
@@ -2010,7 +2010,7 @@ export!), reads `exports["./client"]`, hashes the file, adds a boot-graph row, a
 
 **A second, verified pattern with no `dsh.client` at all** — the working third-party whale widget
 does exactly this and demonstrates that a plugin can ship browser UI from a Host-only package.
-**File read:** `C:\Users\A1391\.dsh\plugins\DeepSeek-Balance-Whale-Widget-main\package.json`
+**File read:** `C:\Users\<user>\.dsh\plugins\DeepSeek-Balance-Whale-Widget-main\package.json`
 
 ```json
   "type": "module",
@@ -2364,7 +2364,7 @@ which is why `!!js dshHomePath('storages')` works inside YAML config.
 ```
 
 So **one domain = one file at `$DSH_HOME/storages/<domainName>.json`**, directory created `0o700`
-(448 decimal) on demand. Confirmed on this machine: `C:\Users\A1391\.dsh\storages\workspace.json` and
+(448 decimal) on demand. Confirmed on this machine: `C:\Users\<user>\.dsh\storages\workspace.json` and
 `session_projcache.json` exist, and `workspace.json` begins:
 
 ```json
@@ -2394,7 +2394,7 @@ So **one domain = one file at `$DSH_HOME/storages/<domainName>.json`**, director
 
 **Recommendation.** Use `ctx.storageDomain.open(defineDomain({...}))` on the shipped `json` backend.
 You get durability, atomic whole-file republish, zod validation at the durable boundary, and a change
-event — with zero path code, and it lands at `C:\Users\A1391\.dsh\storages\<your_domain>.json`.
+event — with zero path code, and it lands at `C:\Users\<user>\.dsh\storages\<your_domain>.json`.
 Do **not** hand-roll files under `$DSH_HOME`: `ctx.fs` has no delete, no rename, and no `mkdir`, so a
 memory store with pruning/GC is not expressible on `ctx.fs` alone.
 
@@ -2759,7 +2759,7 @@ const memoryRecord = z.object({
 })
 
 const MEMORY_DOMAIN = defineDomain({
-  name: 'plugin_memory',   // -> C:\Users\A1391\.dsh\storages\plugin_memory.json
+  name: 'plugin_memory',   // -> C:\Users\<user>\.dsh\storages\plugin_memory.json
   version: 1,
   global: {
     schema: z.object({ schemaVersion: z.number() }),
@@ -3006,7 +3006,7 @@ Still **not verified** (no compiler was run, and nothing was executed):
 | Full `design-platform.css` alias-token list | **Not obtainable.** It is one minified line (~2000+ chars) that the read tool truncates. The 13-name `BUILTIN_INSPECT_TOKENS` set is the authoritative *overridable* directory. |
 | `--dsw-font-mono` | Used by a shipped package but **not declared anywhere** in the tree. |
 | `hook/*` permission bridge | Only a documentation *reference* exists; no hooks package is installed. |
-| Writer of `C:\Users\A1391\.dsh\storages\session_projcache\sessions\*.json` (100 files) | **Unidentified.** It does not match the installed `dsh-storage-json` naming or `UnitState` format. Treat as legacy residue, not a layout to copy. |
+| Writer of `C:\Users\<user>\.dsh\storages\session_projcache\sessions\*.json` (100 files) | **Unidentified.** It does not match the installed `dsh-storage-json` naming or `UnitState` format. Treat as legacy residue, not a layout to copy. |
 | Names that do **not** exist (do not invent identifiers) | `BundleManifest`, `PatchLayer`, `LoaderEntry`, `ResolvedBundle` (dsh-app-boot); `WebServerRoute`, `RouteOptions` (the webserver field is `handler`; the types are `WebRoute` / `WebUpgradeRoute` / `WebRouteKind` / `IndexInjection`). The patch element type is `PatchOptions` (from `cordis-plugin-include`); the inserted row type is `EntryOptions` (from `cordis-plugin-loader`). |
 
 Every package inspected reports version `0.1.1-rc.2`; Cordis reports `4.0.2`.

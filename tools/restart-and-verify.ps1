@@ -1,4 +1,4 @@
-# 重启 DSH 并让独立守护脚本在重启后自我验证。
+﻿# 重启 DSH 并让独立守护脚本在重启后自我验证。
 #
 # 三步：
 #   1. 以“分离进程”启动 verify-after-restart.mjs（不随本次 pwsh 结束而结束）
@@ -8,9 +8,11 @@
 # 守护脚本会自己等应用起来、比对激活标记、把结论写进 restart-report.json。
 
 $ErrorActionPreference = 'Stop'
-$exe  = "C:\Users\A1391\AppData\Local\Programs\DeepSeek Harness\DeepSeek Harness.exe"
+$exe  = if ($env:DSH_APP_EXE) { $env:DSH_APP_EXE } else {
+  Join-Path $env:LOCALAPPDATA 'Programs\DeepSeek Harness\DeepSeek Harness.exe'
+}
 $node = "$env:USERPROFILE\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\node\bin\node.exe"
-$work = "E:\DSH-Memory"
+$work = Split-Path -Parent $PSScriptRoot
 
 Write-Host "[1/3] 启动分离的验证守护进程（180 秒窗口）..."
 $verifier = Start-Process -FilePath $node `
