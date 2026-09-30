@@ -1,0 +1,7 @@
+# dsh-memory bundle patch layer.
+# Mounts the memory plugin into the cordis tree so its apply() runs: the host
+# half registers the `memory` / `memory_context` tools, the `/memory` command,
+# and the per-session project-memory prompt section.
+- insert:
+    - id: memory
+      name: dsh-memory

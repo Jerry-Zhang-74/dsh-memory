@@ -1,0 +1,7 @@
+# dsh-chat bundle patch layer.
+# Mounts the standalone-chat plugin into the cordis tree so its apply() runs and
+# registers the `/chat` command. This is an entry of its own, so the whole
+# feature can be enabled or disabled independently of any other plugin.
+- insert:
+    - id: chat
+      name: dsh-chat

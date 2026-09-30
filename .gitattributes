@@ -1,0 +1,2 @@
+# Store LF in the repository; normalise on checkout.
+* text=auto

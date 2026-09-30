@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Logs and runtime state
+*.log
+npm-debug.log*
+.dsh/
+*.local.json
+
+# Local research notes and vendored third-party sources (not published)
+research/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
